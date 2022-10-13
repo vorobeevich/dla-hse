@@ -11,17 +11,25 @@ class Hypothesis(NamedTuple):
 
 
 class CTCCharTextEncoder(CharTextEncoder):
-    EMPTY_TOK = "^"
-
+    
     def __init__(self, alphabet: List[str] = None):
+        self.EMPTY_TOK = "^"
         super().__init__(alphabet)
         vocab = [self.EMPTY_TOK] + list(self.alphabet)
         self.ind2char = dict(enumerate(vocab))
         self.char2ind = {v: k for k, v in self.ind2char.items()}
+        self.EMPTY_IND = self.char2ind[self.EMPTY_TOK]
 
     def ctc_decode(self, inds: List[int]) -> str:
-        # TODO: your code here
-        raise NotImplementedError()
+        last = self.EMPTY_IND
+        result = []
+        for ind in inds:
+            if ind != last:
+                last = ind
+                if ind != self.EMPTY_IND:
+                    result.append(self.ind2char[ind])
+        return ''.join(result)
+
 
     def ctc_beam_search(self, probs: torch.tensor, probs_length,
                         beam_size: int = 100) -> List[Hypothesis]:
