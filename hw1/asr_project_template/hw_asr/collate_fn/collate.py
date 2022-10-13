@@ -24,7 +24,10 @@ def collate_fn(dataset_items: List[dict]) -> dict[str, Union[List[str], torch.Te
     for ind, dataset_item in enumerate(dataset_items):
         result_batch["text_encoded"][ind, :dataset_item["text_encoded"].shape[1]] = dataset_item["text_encoded"]
     result_batch["text"] = [dataset_item["text"] for dataset_item in dataset_items]
-    result_batch["text_encoded_length"] = torch.Tensor([len(dataset_item["text_encoded"]) for dataset_item in dataset_items])
+    result_batch["audio_path"] = [dataset_item["audio_path"] for dataset_item in dataset_items]
+    result_batch["text_encoded_length"] = torch.IntTensor([dataset_item["text_encoded"].shape[1] for dataset_item in dataset_items])
+    result_batch["spectrogram_length"] = torch.IntTensor([dataset_item["spectrogram"].shape[2] for dataset_item in dataset_items])
+    
     return result_batch
     
     
