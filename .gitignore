@@ -1,3 +1,4 @@
 *.pyc
 hw1/asr_project_template/data/*
 hw1/asr_project_template/saved/*
+hw1/asr_project_template/wandb/*
