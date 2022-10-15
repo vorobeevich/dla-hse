@@ -84,9 +84,13 @@ class Trainer(BaseTrainer):
         self.model.train()
         self.train_metrics.reset()
         self.writer.add_scalar("epoch", epoch)
+        self.cnt = 0
+        
         for batch_idx, batch in enumerate(
                 tqdm(self.train_dataloader, desc="train", total=self.len_epoch)
         ):
+            if batch_idx >= self.len_epoch:
+                break
             try:
                 batch = self.process_batch(
                     batch,
@@ -121,8 +125,7 @@ class Trainer(BaseTrainer):
                 # because we are interested in recent train metrics
                 last_train_metrics = self.train_metrics.result()
                 self.train_metrics.reset()
-            if batch_idx >= self.len_epoch:
-                break
+            
         log = last_train_metrics
 
         for part, dataloader in self.evaluation_dataloaders.items():
@@ -151,6 +154,7 @@ class Trainer(BaseTrainer):
             self._clip_grad_norm()
             self.optimizer.step()
             if self.lr_scheduler is not None:
+                self.cnt += 1
                 self.lr_scheduler.step()
 
         metrics.update("loss", batch["loss"].item())
