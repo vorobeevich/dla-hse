@@ -1,11 +1,11 @@
 import logging
-from typing import List, Union
+from typing import List, Dict, Union
 import torch
 
 logger = logging.getLogger(__name__)
 
 
-def collate_fn(dataset_items: List[dict]) -> dict[str, Union[List[str], torch.Tensor]]:
+def collate_fn(dataset_items: List[dict]) -> Dict[str, Union[List[str], torch.Tensor]]:
     """
     Collate and pad fields in dataset items
     """
