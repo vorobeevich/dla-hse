@@ -18,7 +18,9 @@ using a scheduler and softmax temperature, but was not successful.
 Therefore, I first increased the number of epochs to 100, and then left it at 50.
 
 In the next picture, we see figures of quality and losses depending on the number of epochs.
+
 ![image](https://user-images.githubusercontent.com/61282340/200200428-3db2e0aa-1d89-42cf-8dc6-af2fc41d386b.png)
+
 The behavior of all three charts looks similar: the metric and losses are a little noisy, but gradually decrease.
 
 2. **Fp32 -> Fp16**
@@ -31,12 +33,16 @@ The graph of the metric is very noisy: the compressed model simply cannot train 
 
 3. **Final setup**
 
-In the end, I combined both approaches, and it gave me unexpectedly good quality - I achieved the desired result in just 20 epochs.
+In the end, I combined both approaches, and it gave me unexpectedly good quality - I achieved the desired result in just 40 epochs.
+
+![image](https://user-images.githubusercontent.com/61282340/200202631-449a703e-b0df-4d45-91c3-588cec2e2044.png)
+
 I wasn't able to run other experiments like int8 quantization, pruning, or attenuation distillation due to various bugs that I didn't have time to fix.
 
 4. **My score**
 
 And so, I used distillation on a model with a compressed number of parameters and data type fp16.
+
 ![image](https://user-images.githubusercontent.com/61282340/200200617-a3cd192f-6b25-4a2b-9194-9c262e91be41.png)
 
 ![image](https://user-images.githubusercontent.com/61282340/200200658-a5fe880b-120e-48bd-8793-85110817444c.png)
