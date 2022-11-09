@@ -29,7 +29,7 @@ For this experiment, I only tested the model on 20 epochs to quickly check its p
 
 ![image](https://user-images.githubusercontent.com/61282340/200200514-1261562c-6daf-4623-9017-f7fa61a66379.png)
 
-The graph of the metric is very noisy: the compressed model simply cannot train well. Therefore, I immediately moved on to the next experiment.
+The values of the metric are very noisy: the compressed model simply cannot train well. Therefore, I immediately moved on to the next experiment.
 
 3. **Final setup**
 
